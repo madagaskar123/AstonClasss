@@ -1,6 +1,6 @@
-package Lesson_2;
+package Lesson_4;
 
-public class Lesson_2 {
+public class Lesson_4 {
     public static void main(String[] args) {
         printThreeWords();
         checkSumSign();
