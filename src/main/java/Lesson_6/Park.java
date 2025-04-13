@@ -35,14 +35,4 @@ public class Park {
 }
 
 // Пример использования
-  class ParkExample {
-    public static void run() {
-        Park disneyland = new Park("Disneyland");
-        Park.Attraction rollerCoaster = new Park.Attraction("Горки", "10:00-20:00", 500);
-        Park.Attraction ferrisWheel = new Park.Attraction("Колесо обозрения", "09:00-22:00", 300);
 
-        System.out.println("=== Аттракционы в парке ===");
-        rollerCoaster.displayInfo(disneyland.getParkName());
-        ferrisWheel.displayInfo(disneyland.getParkName());
-    }
-}
