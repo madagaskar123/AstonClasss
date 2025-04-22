@@ -1,17 +1,54 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        // Тестовые данные
+        String[][] testCases = {
+                {"1", "2", "3", "4"},
+                {"5", "6", "7", "8"},
+                {"9", "10", "11", "12"},
+                {"13", "14", "15", "16"}
+        };
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        String[][] invalidData = {
+                {"1", "2", "3", "4"},
+                {"5", "6", "X", "8"},
+                {"9", "10", "11", "12"},
+                {"13", "14", "15", "16"}
+        };
+
+        String[][] wrongSize = {
+                {"1", "2", "3"},
+                {"4", "5", "6"},
+                {"7", "8", "9"}
+        };
+
+        // Тестирование обработки массива
+        System.out.println("=== Тест обработки массива ===");
+        testArrayProcessing(testCases);
+        testArrayProcessing(invalidData);
+        testArrayProcessing(wrongSize);
+
+        // Тестирование ArrayIndexOutOfBounds
+        System.out.println("\n=== Тест выхода за границы массива ===");
+        testArrayIndexOutOfBounds();
+    }
+
+    private static void testArrayProcessing(String[][] array) {
+        try {
+            int result = ArrayProcessor.sumArray(array);
+            System.out.println("Успех! Сумма: " + result);
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
+    private static void testArrayIndexOutOfBounds() {
+        try {
+            ArrayProcessor.demonstrateIndexOutOfBounds();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Поймано исключение: " + e.toString());
+            System.out.println("Неверный индекс: " + e.getMessage().replace("Index ", ""));
         }
     }
 }
