@@ -1,17 +1,52 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println("=== Задание 1: Управление студентами ===");
+        task1();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("\n=== Задание 2: Телефонный справочник ===");
+        task2();
+    }
+
+    private static void task1() {
+        Set<Student> students = new HashSet<>();
+        students.add(new Student("Иван Иванов", "Группа 101", 1, Map.of("Математика", 4, "Физика", 3)));
+        students.add(new Student("Петр Петров", "Группа 102", 1, Map.of("Математика", 2, "Физика", 2)));
+        students.add(new Student("Артем Сидоров", "Группа 201", 2, Map.of("Математика", 5, "Физика", 4)));
+        students.add(new Student("Анна Казакова", "Группа 202", 2, Map.of("Математика", 3, "Физика", 2)));
+
+        System.out.println("\nВсе студенты:");
+        for (Student student : students) {
+            System.out.println(  student.getName() + ", Курс: " + student.getCourse());
+        }
+
+    }
+
+    private static void task2() {
+        PhoneDirectory directory = new PhoneDirectory();
+
+        directory.add("Иванов", "123-456");
+        directory.add("Петров", "234-567");
+        directory.add("Сидоров", "345-678");
+        directory.add("Иванов", "456-789");
+        directory.add("Иванов", "567-890");
+
+
+        System.out.println("\nПоиск номеров:");
+        searchAndPrint(directory, "Иванов");
+        searchAndPrint(directory, "Петров");
+        searchAndPrint(directory, "Несуществующий");
+    }
+
+    private static void searchAndPrint(PhoneDirectory directory, String surname) {
+        List<String> phones = directory.get(surname);
+        if (phones.isEmpty()) {
+            System.out.println("Фамилия '" + surname + "' не найдена в справочнике");
+        } else {
+            System.out.println("Номера для фамилии '" + surname + "': " + String.join(", ", phones));
         }
     }
 }
