@@ -1,0 +1,300 @@
+Index: src/test/java/MtsPageTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import org.junit.jupiter.api.*;\r\nimport org.openqa.selenium.*;\r\nimport io.github.bonigarcia.wdm.WebDriverManager;\r\nimport java.time.Duration;\r\nimport java.util.List;\r\n\r\nimport static org.junit.jupiter.api.Assertions.*;\r\n\r\nimport org.openqa.selenium.By;\r\nimport org.openqa.selenium.WebDriver;\r\nimport org.openqa.selenium.WebElement;\r\nimport org.openqa.selenium.chrome.ChromeDriver;\r\nimport org.openqa.selenium.chrome.ChromeOptions;\r\nimport org.openqa.selenium.support.ui.ExpectedConditions;\r\nimport org.openqa.selenium.support.ui.WebDriverWait;\r\nimport java.util.logging.Logger;\r\n\r\n\r\n\r\npublic class MtsPageTest {\r\n    private static final Logger logger = Logger.getLogger(MtsPageTest.class.getName());\r\n    private static WebDriver driver;\r\n    private static WebDriverWait wait;\r\n    private WebDriverWait shortWait;\r\n    private final By phoneInput = By.xpath(\"//*[@id='connection-phone']\");\r\n    private final By sumInput = By.xpath(\"//*[@id='connection-sum']\");\r\n    private final By emailInput = By.xpath(\"//*[@id='connection-email']\");\r\n    private final By continueButton = By.xpath(\"//*[@id='pay-connection']/button\");\r\n    private final By homeInternetAccountInput = By.xpath(\"//input[@placeholder='Номер абонента']\");\r\n    private final By installmentAccountInput = By.xpath(\"//input[@placeholder='Номер счета на 44']\");\r\n    private final By debtAccountInput = By.xpath(\"//input[contains(@placeholder, 'Номер счета на 2073')]\");\r\n    private final By homeInternetTab = By.xpath(\"//*[@id='pay-section']/div/div/div[2]/section/div/div[1]/div[1]/div[2]/button/span[1]\");\r\n    private final By servicesTab = By.xpath(\"//span[text()='Услуги связи']\");\r\n    private final By installmentTab = By.xpath(\"//option[@value='Рассрочка']\");\r\n    private final By debtTab = By.xpath(\"//option[@value='Задолженность' and @data-open='pay-arrears']\");\r\n    private final By visaIcon = By.xpath(\"//img[contains(@src, 'visa')]\");\r\n    private final By mastercardIcon = By.xpath(\"//img[contains(@src, 'mastercard')]\");\r\n    private static MtsByHomePage homePage;\r\n    static By amountDisplayLocator = By.xpath(\"//span[contains(., 'BYN')]\");\r\n\r\n\r\n    @BeforeAll\r\n    public static void setup() {\r\n        WebDriverManager.chromedriver().setup();\r\n        ChromeOptions options = new ChromeOptions();\r\n        options.addArguments(\"--start-maximized\");\r\n        options.addArguments(\"--remote-allow-origins=*\");\r\n        driver = new ChromeDriver(options);\r\n        wait = new WebDriverWait(driver, Duration.ofSeconds(15));\r\n    }\r\n\r\n    @BeforeEach\r\n    public void openPage() {\r\n        driver.get(\"https://www.mts.by\");\r\n        homePage = new MtsByHomePage(driver, wait);\r\n        homePage.acceptCookiesIfPresent();\r\n    }\r\n\r\n        // Тесты\r\n\r\n    @Test\r\n    @DisplayName(\"Проверка названия блока <Онлайн пополнение без комисии>\")\r\n    public void testBlockTitle() {\r\n        String actualTitle = homePage.getOnlinePaymentTitle();\r\n        assertEquals(\"Онлайн пополнение без комиссии\", actualTitle);\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Проверка на наличие логотипов платежных систем\")\r\n    public void testPaymentLogosExist() {\r\n        List<WebElement> logos = homePage.getPaymentLogos();\r\n        assertFalse(logos.isEmpty(), \"Логотипы платежных систем не найдены\");\r\n\r\n        for (WebElement logo : logos) {\r\n            assertTrue(logo.isDisplayed(), \"Один из логотипов не отображается\");\r\n        }\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Тестирование работы ссылки\")\r\n    public void testPaymentSecurityServiceLink() {\r\n        String expectedPath = homePage.getPaymentServiceLinkHref();\r\n        homePage.clickPaymentServiceLink();\r\n        assertTrue(driver.getCurrentUrl().contains(expectedPath),\r\n                \"Переход выполнен не по ожидаемой ссылке\");\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Тестирование кнопки 'Продолжить'\")\r\n    public void testContinueButtonFunctionality() {\r\n        homePage.selectServiceOption(\"Услуги связи\");\r\n        homePage.enterPhoneNumber(\"297777777\");\r\n        homePage.enterPaymentAmount(\"10\");\r\n\r\n        WebElement continueButton = homePage.getContinueButton();\r\n\r\n        assertAll(\"Проверка кнопки 'Продолжить'\",\r\n                () -> assertTrue(continueButton.isDisplayed(), \"Кнопка не отображается\"),\r\n                () -> assertTrue(continueButton.isEnabled(), \"Кнопка неактивна\"),\r\n                () -> assertFalse(continueButton.getAttribute(\"class\").contains(\"disabled\"),\r\n                        \"Кнопка имеет класс disabled\")\r\n\r\n        );\r\n\r\n        assertDoesNotThrow(() -> continueButton.click(),\r\n                \"При клике на кнопку произошла ошибка\");\r\n\r\n\r\n        try {\r\n            WebElement validationMessage = homePage.getValidationMessage();\r\n            assertTrue(validationMessage.isDisplayed(),\r\n                    \"Не появилось сообщение о необходимости заполнить поле\");\r\n        } catch (TimeoutException e) {}\r\n    }\r\n    @Test\r\n    @DisplayName(\"Проверка плейсхолдеров для Услуг связи\")\r\n    void verifyEmptyFieldsPlaceholdersForMobileServices() {\r\n        selectTab(servicesTab, phoneInput);\r\n\r\n        assertAll(\"Проверка плейсхолдеров\",\r\n                () -> assertEquals(\"Номер телефона\", getElementAttribute(phoneInput, \"placeholder\")),\r\n                this::assertCommonPaymentFormFields\r\n        );\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Проверка плейсхолдеров для Домашнего интернета\")\r\n    void verifyEmptyFieldsPlaceholdersForHomeInternet() {\r\n        selectTab(homeInternetTab, homeInternetAccountInput);\r\n\r\n        assertAll(\"Проверка для Домашнего интернета\",\r\n                () -> assertEquals(\"Номер абонента\", getElementAttribute(homeInternetAccountInput, \"placeholder\")),\r\n                this::assertCommonPaymentFormFields\r\n        );\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Проверка плейсхолдеров для Рассрочки\")\r\n    void verifyEmptyFieldsPlaceholdersForInstallment() {\r\n        selectTab(installmentTab, installmentAccountInput);\r\n\r\n        assertAll(\"Проверка для Рассрочки\",\r\n                () -> assertEquals(\"Номер счета на 44\", getElementAttribute(installmentAccountInput, \"placeholder\")),\r\n                this::assertCommonPaymentFormFields\r\n        );\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Проверка плейсхолдеров для Задолженности\")\r\n    void verifyEmptyFieldsPlaceholdersForDebt() {\r\n        selectTab(debtTab, debtAccountInput);\r\n\r\n        assertAll(\"Проверка для Задолженности\",\r\n                () -> assertEquals(\"Номер счета на 2073\", getElementAttribute(debtAccountInput, \"placeholder\")),\r\n                this::assertCommonPaymentFormFields\r\n        );\r\n    }\r\n\r\n    @Test\r\n    @DisplayName(\"Тестирование кнопки 'Продолжить'\")\r\n    public void testContinueButtonFunctionality2() {\r\n        homePage.selectServiceOption(\"Услуги связи\");\r\n        homePage.enterPhoneNumber(\"297777777\");\r\n        homePage.enterPaymentAmount(\"10\");\r\n        clickContinue();\r\n\r\n        WebElement continueButton = homePage.getContinueButton();\r\n\r\n        assertAll(\"Проверка кнопки 'Продолжить'\",\r\n                () -> assertTrue(continueButton.isDisplayed(), \"Кнопка не отображается\"),\r\n                () -> assertTrue(continueButton.isEnabled(), \"Кнопка неактивна\"),\r\n                () -> assertFalse(continueButton.getAttribute(\"class\").contains(\"disabled\"),\r\n                        \"Кнопка имеет класс disabled\"),\r\n        () -> assertTrue(isPaymentSystemIconDisplayed(\"Visa\")),\r\n                () -> assertTrue(isPaymentSystemIconDisplayed(\"Mastercard\"))\r\n\r\n        );\r\n\r\n        try {\r\n            WebElement validationMessage = homePage.getValidationMessage();\r\n            assertTrue(validationMessage.isDisplayed(),\r\n                    \"Не появилось сообщение о необходимости заполнить поле\");\r\n        } catch (TimeoutException e) {}\r\n    }\r\n\r\n\r\n\r\n    @AfterAll\r\n    public static void tearDown() {\r\n        if (driver != null) {\r\n            driver.quit();\r\n        }\r\n    }\r\n\r\n    // Page Object Class\r\n    private static class MtsByHomePage {\r\n        private final WebDriver driver;\r\n        private WebDriverWait wait;\r\n\r\n        public String getDisplayedAmount() {\r\n            return driver.findElement(amountDisplayLocator).getText().trim();\r\n        }\r\n\r\n        public MtsByHomePage(WebDriver driver, WebDriverWait wait) {\r\n            this.driver = driver;\r\n            this.wait = wait;\r\n        }\r\n\r\n        public void acceptCookiesIfPresent() {\r\n            try {\r\n                driver.findElement(By.xpath(\"//button[contains(., 'Принять')]\")).click();\r\n            } catch (Exception e) {}\r\n        }\r\n\r\n        public String getOnlinePaymentTitle() {\r\n            WebElement titleElement = wait.until(ExpectedConditions\r\n                    .visibilityOfElementLocated(By.xpath(\"//h2[contains(., 'Онлайн пополнение')]\")));\r\n            return titleElement.getText().replace(\"\\n\", \" \").trim();\r\n        }\r\n\r\n        public List<WebElement> getPaymentLogos() {\r\n            return driver.findElements(By.cssSelector(\"div.pay__partners li\"));\r\n        }\r\n\r\n        public String getPaymentServiceLinkHref() {\r\n            WebElement link = driver.findElement(By.xpath(\"//a[contains(.,'Подробнее о сервисе')]\"));\r\n            return link.getAttribute(\"href\");\r\n        }\r\n\r\n        public void clickPaymentServiceLink() {\r\n            WebElement link = driver.findElement(By.xpath(\"//a[contains(.,'Подробнее о сервисе')]\"));\r\n            link.click();\r\n        }\r\n\r\n        public void selectServiceOption(String optionText) {\r\n            List<WebElement> options = driver.findElements(By.cssSelector(\"li.select_item\"));\r\n            for (WebElement option : options) {\r\n                if (option.getText().contains(optionText)) {\r\n                    option.click();\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n\r\n        public void enterPhoneNumber(String phoneNumber) {\r\n            WebElement phoneInput = driver.findElement(By.cssSelector(\"input[placeholder='Номер телефона']\"));\r\n            phoneInput.sendKeys(phoneNumber);\r\n        }\r\n\r\n        public void enterPaymentAmount(String amount) {\r\n            WebElement amountInput = wait.until(ExpectedConditions\r\n                    .visibilityOfElementLocated(By.cssSelector(\"input[placeholder*='Сумма']\")));\r\n            amountInput.clear();\r\n            amountInput.sendKeys(amount);\r\n        }\r\n\r\n        public WebElement getContinueButton() {\r\n            return wait.until(ExpectedConditions\r\n                    .presenceOfElementLocated(By.xpath(\"//button[contains(., 'Продолжить')]\")));\r\n        }\r\n\r\n        public WebElement getValidationMessage() {\r\n            return wait.until(ExpectedConditions\r\n                    .visibilityOfElementLocated(By.cssSelector(\".error-message\")));\r\n        }\r\n\r\n        private String getElementText(By locator) {\r\n            return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))\r\n                    .getText();\r\n        }\r\n        private WebDriverWait getWait() {\r\n            if (wait == null) {\r\n                wait = new WebDriverWait(driver, Duration.ofSeconds(10));\r\n            }\r\n            return wait;\r\n        }\r\n\r\n\r\n    }\r\n\r\n    public void enterText(By locator, String text) {\r\n        WebElement element = getWait().until(ExpectedConditions.elementToBeClickable(locator));\r\n        element.clear();\r\n        element.sendKeys(text);\r\n    }\r\n\r\n    public void clickContinue() {\r\n        getWait().until(ExpectedConditions.elementToBeClickable(continueButton)).click();\r\n    }\r\n\r\n    public void selectTab(By tabLocator, By inputLocator) {\r\n        getWait().until(ExpectedConditions.elementToBeClickable(tabLocator)).click();\r\n        getWait().until(ExpectedConditions.presenceOfElementLocated(inputLocator));\r\n    }\r\n    private String getElementAttribute(By locator, String attribute) {\r\n        return getWait().until(ExpectedConditions.presenceOfElementLocated(locator))\r\n                .getAttribute(attribute);\r\n    }\r\n\r\n    private String getElementText(By locator) {\r\n        return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))\r\n                .getText();\r\n    }\r\n\r\n    public boolean isPaymentSystemIconDisplayed(String systemName) {\r\n        By iconLocator;\r\n        switch (systemName.toLowerCase()) {\r\n            case \"visa\":\r\n                iconLocator = visaIcon;\r\n                break;\r\n            case \"mastercard\":\r\n                iconLocator = mastercardIcon;\r\n                break;\r\n\r\n            default:\r\n                throw new IllegalArgumentException(\"Unknown payment system: \" + systemName);\r\n        }\r\n        try {\r\n            return driver.findElement(iconLocator).isDisplayed();\r\n        } catch (Exception e) {\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n    private WebDriverWait getWait() {\r\n        if (wait == null) {\r\n            wait = new WebDriverWait(driver, Duration.ofSeconds(10));\r\n        }\r\n        return wait;\r\n    }\r\n\r\n    private WebDriverWait getShortWait() {\r\n        if (shortWait == null) {\r\n            shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));\r\n        }\r\n        return shortWait;\r\n    }\r\n\r\n    private void assertCommonPaymentFormFields() {\r\n        assertAll(\"Общие проверки формы оплаты\",\r\n                () -> assertEquals(\"Сумма\", getElementAttribute(sumInput, \"placeholder\")),\r\n                () -> assertEquals(\"E-mail для отправки чека\", getElementAttribute(emailInput, \"placeholder\"))\r\n        );\r\n    }\r\n\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+===================================================================
+diff --git a/src/test/java/MtsPageTest.java b/src/test/java/MtsPageTest.java
+--- a/src/test/java/MtsPageTest.java	(revision 43a79d333bd9ad51ce5782e89a8624e2931e707f)
++++ b/src/test/java/MtsPageTest.java	(date 1747043206403)
+@@ -3,6 +3,9 @@
+ import io.github.bonigarcia.wdm.WebDriverManager;
+ import java.time.Duration;
+ import java.util.List;
++import java.util.Objects;
++import java.util.function.Supplier;
++import java.util.logging.Logger;
+ 
+ import static org.junit.jupiter.api.Assertions.*;
+ 
+@@ -13,15 +16,14 @@
+ import org.openqa.selenium.chrome.ChromeOptions;
+ import org.openqa.selenium.support.ui.ExpectedConditions;
+ import org.openqa.selenium.support.ui.WebDriverWait;
+-import java.util.logging.Logger;
+-
+-
+ 
+ public class MtsPageTest {
+     private static final Logger logger = Logger.getLogger(MtsPageTest.class.getName());
+     private static WebDriver driver;
+     private static WebDriverWait wait;
+     private WebDriverWait shortWait;
++
++    // Locators for payment form
+     private final By phoneInput = By.xpath("//*[@id='connection-phone']");
+     private final By sumInput = By.xpath("//*[@id='connection-sum']");
+     private final By emailInput = By.xpath("//*[@id='connection-email']");
+@@ -33,11 +35,34 @@
+     private final By servicesTab = By.xpath("//span[text()='Услуги связи']");
+     private final By installmentTab = By.xpath("//option[@value='Рассрочка']");
+     private final By debtTab = By.xpath("//option[@value='Задолженность' and @data-open='pay-arrears']");
++    private final By cardNumberInput = By.xpath("//input[@id='cc-number']");
++    private final By cardExpiryInput = By.xpath("//input[@formcontrolname='expirationDate']");
++    private final By cardCvvInput = By.xpath("//input[@formcontrolname='cvc']");
++    private final By cardNameInput = By.xpath("//input[@placeholder='Имя держателя']");
++    private final By modalPhone = By.xpath("//span[contains(., 'Номер:375297777777')]");
++    private final By modalSum = By.xpath("//span[contains(., 'BYN')]");
++    private final By modalButtonSum = By.xpath("//button[contains(@class, 'colored') and contains(., 'BYN')]");
++    private final By paymentSystemIcons = By.xpath("//div[contains(@class, 'cards-brands__container')]");
+     private final By visaIcon = By.xpath("//img[contains(@src, 'visa')]");
+     private final By mastercardIcon = By.xpath("//img[contains(@src, 'mastercard')]");
++    private final By belcardIcon = By.xpath("//img[contains(@src, 'belkart') or contains(@alt, 'Белкарт')]");
++
++    // New locators from PaymentPage
++    private static final By paymentIframe = By.cssSelector("iframe.bepaid-iframe");
++    private static final By amountDisplay = By.cssSelector(".payment-amount");
++    private static final By phoneDisplay = By.cssSelector(".recipient-phone");
++    private static final By cardNumberField = By.cssSelector("[data-field='cardNumber'] label");
++    private static final By expiryDateField = By.cssSelector("[data-field='expiryDate'] input");
++    private static final By cvcField = By.cssSelector("[data-field='cvc'] input");
++    private static final By paymentMethods = By.cssSelector(".payment-method:not(.hidden)");
++    private static final By payButton = By.cssSelector(".submit-button");
++
+     private static MtsByHomePage homePage;
+-    static By amountDisplayLocator = By.xpath("//span[contains(., 'BYN')]");
++    private static PaymentPage paymentPage;
+ 
++    private static final String PHONE_NUMBER = "(29)777-77-77";
++    private static final String SUM_CHECK = "10";
++    private static final String EMAIL = "test@example.com";
+ 
+     @BeforeAll
+     public static void setup() {
+@@ -53,6 +78,7 @@
+     public void openPage() {
+         driver.get("https://www.mts.by");
+         homePage = new MtsByHomePage(driver, wait);
++        paymentPage = new PaymentPage(driver);
+         homePage.acceptCookiesIfPresent();
+     }
+ 
+@@ -155,14 +181,35 @@
+                 this::assertCommonPaymentFormFields
+         );
+     }
++    @Test
++    @DisplayName("Проверка процесса оплаты для Услуг связи")
++    void verifyMobileServicesPaymentProcess() {
++        selectTab(servicesTab, phoneInput);
++        enterText(phoneInput, PHONE_NUMBER);
++        enterText(sumInput, SUM_CHECK);
++        clickContinue();
+ 
++        assertAll("Проверка данных в модальном окне",
++                () -> assertEquals(SUM_CHECK + ".00 BYN", getElementText(modalSum)),
++                () -> assertEquals(SUM_CHECK + " BYN", getElementText(modalButtonSum)),
++                () -> assertEquals(PHONE_NUMBER, getElementText(modalPhone)),
++                () -> assertEquals("Номер карты", getElementAttribute(cardNumberInput, "placeholder")),
++                () -> assertEquals("Срок действия", getElementAttribute(cardExpiryInput, "placeholder")),
++                () -> assertEquals("CVC", getElementAttribute(cardCvvInput, "placeholder")),
++                () -> assertEquals("Имя держателя (как на карте)", getElementAttribute(cardNameInput, "placeholder")),
++                () -> assertTrue(isPaymentSystemIconDisplayed("Visa")),
++                () -> assertTrue(isPaymentSystemIconDisplayed("Mastercard")),
++                () -> assertTrue(isPaymentSystemIconDisplayed("Белкарт"))
++
++        );
++    }
+     @Test
+     @DisplayName("Тестирование кнопки 'Продолжить'")
+     public void testContinueButtonFunctionality2() {
+         homePage.selectServiceOption("Услуги связи");
+         homePage.enterPhoneNumber("297777777");
+         homePage.enterPaymentAmount("10");
+-        clickContinue();
++
+ 
+         WebElement continueButton = homePage.getContinueButton();
+ 
+@@ -170,11 +217,14 @@
+                 () -> assertTrue(continueButton.isDisplayed(), "Кнопка не отображается"),
+                 () -> assertTrue(continueButton.isEnabled(), "Кнопка неактивна"),
+                 () -> assertFalse(continueButton.getAttribute("class").contains("disabled"),
+-                        "Кнопка имеет класс disabled"),
+-        () -> assertTrue(isPaymentSystemIconDisplayed("Visa")),
+-                () -> assertTrue(isPaymentSystemIconDisplayed("Mastercard"))
++                        "Кнопка имеет класс disabled")
++
+ 
+         );
++
++        assertDoesNotThrow(() -> continueButton.click(),
++                "При клике на кнопку произошла ошибка");
++
+ 
+         try {
+             WebElement validationMessage = homePage.getValidationMessage();
+@@ -182,6 +232,50 @@
+                     "Не появилось сообщение о необходимости заполнить поле");
+         } catch (TimeoutException e) {}
+     }
++    @Test
++    @DisplayName("Проверка процесса мобильного платежа")
++    void testMobilePaymentProcess() {
++        // Шаг 1: Заполнение и отправка платежной формы
++        homePage.selectServiceOption("Услуги связи");
++        homePage.enterPhoneNumber("297777777");
++        homePage.enterPaymentAmount("100");
++        clickContinue();
++
++        // Шаг 2: Проверка отображения платежной формы
++        assertTrue(paymentPage.isPaymentFormVisible(),
++                "Платежная форма должна отображаться после заполнения данных");
++
++        // Шаг 3: Верификация платежных данных
++        verifyPaymentData("100");
++
++        // Шаг 4: Проверка полей формы
++        verifyFormFields();
++    }
++
++    private void verifyPaymentData(String amount) {
++        assertAll("Проверка платежных данных",
++                () -> assertEquals(amount + ".00 BYN", paymentPage.getDisplayedAmount(),
++                        "Отображаемая сумма платежа не соответствует введенной"),
++                () -> assertTrue(paymentPage.getDisplayedPhoneNumber().contains("375297777777"),
++                        "Номер телефона получателя не совпадает с ожидаемым"),
++                () -> assertTrue(paymentPage.getPayButtonText().contains(amount + ".00 BYN"),
++                        "Кнопка оплаты должна содержать верную сумму")
++        );
++    }
++
++    private void verifyFormFields() {
++        assertAll("Проверка полей формы оплаты",
++                () -> assertEquals("Номер карты", paymentPage.getCardNumberPlaceholder(),
++                        "Неверный плейсхолдер для поля номера карты"),
++                () -> assertEquals("ММ/ГГ", paymentPage.getExpiryDatePlaceholder(),
++                        "Неверный плейсхолдер для поля срока действия"),
++                () -> assertEquals("CVC/CVV", paymentPage.getCvcPlaceholder(),
++                        "Неверный плейсхолдер для поля безопасности"),
++                () -> assertEquals(4, paymentPage.getVisiblePaymentMethods(),
++                        "Должно отображаться 4 способа оплаты")
++        );
++    }
++
+ 
+ 
+ 
+@@ -197,10 +291,6 @@
+         private final WebDriver driver;
+         private WebDriverWait wait;
+ 
+-        public String getDisplayedAmount() {
+-            return driver.findElement(amountDisplayLocator).getText().trim();
+-        }
+-
+         public MtsByHomePage(WebDriver driver, WebDriverWait wait) {
+             this.driver = driver;
+             this.wait = wait;
+@@ -264,6 +354,8 @@
+                     .visibilityOfElementLocated(By.cssSelector(".error-message")));
+         }
+ 
++        // Методы для получения значений полей
++
+         private String getElementText(By locator) {
+             return getWait().until(ExpectedConditions.visibilityOfElementLocated(locator))
+                     .getText();
+@@ -292,6 +384,8 @@
+         getWait().until(ExpectedConditions.elementToBeClickable(tabLocator)).click();
+         getWait().until(ExpectedConditions.presenceOfElementLocated(inputLocator));
+     }
++
++    // Методы для получения значений полей
+     private String getElementAttribute(By locator, String attribute) {
+         return getWait().until(ExpectedConditions.presenceOfElementLocated(locator))
+                 .getAttribute(attribute);
+@@ -311,7 +405,9 @@
+             case "mastercard":
+                 iconLocator = mastercardIcon;
+                 break;
+-
++            case "белкарт":
++                iconLocator = belcardIcon;
++                break;
+             default:
+                 throw new IllegalArgumentException("Unknown payment system: " + systemName);
+         }
+@@ -343,8 +439,73 @@
+                 () -> assertEquals("E-mail для отправки чека", getElementAttribute(emailInput, "placeholder"))
+         );
+     }
++    private static class PaymentPage {
++        private final WebDriver driver;
++        private final WebDriverWait wait;
++
++        public PaymentPage(WebDriver driver) {
++            this.driver = Objects.requireNonNull(driver, "Driver не должен быть null");
++            this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
++        }
++
++        public boolean isPaymentFormVisible() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.visibilityOfElementLocated(amountDisplay))
++                            .isDisplayed());
++        }
++
++        public String getDisplayedAmount() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.visibilityOfElementLocated(amountDisplay))
++                            .getText());
++        }
++
++        public String getDisplayedPhoneNumber() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.visibilityOfElementLocated(phoneDisplay))
++                            .getText());
++        }
++
++        public String getCardNumberPlaceholder() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.visibilityOfElementLocated(cardNumberField))
++                            .getAttribute("textContent"));
++        }
+ 
++        public String getExpiryDatePlaceholder() {
++            return executeInFrame(() ->
++                    driver.findElement(expiryDateField).getAttribute("placeholder"));
++        }
++
++        public String getCvcPlaceholder() {
++            return executeInFrame(() ->
++                    driver.findElement(cvcField).getAttribute("placeholder"));
++        }
++
++        public int getVisiblePaymentMethods() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(paymentMethods))
++                            .size());
++        }
++
++        public String getPayButtonText() {
++            return executeInFrame(() ->
++                    wait.until(ExpectedConditions.elementToBeClickable(payButton))
++                            .getText());
++        }
++
++        private <T> T executeInFrame(Supplier<T> action) {
++            wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(paymentIframe));
++            try {
++                return action.get();
++            } finally {
++                driver.switchTo().defaultContent();
++            }
++        }
++    }
+ }
++
++
+ 
+ 
+ 

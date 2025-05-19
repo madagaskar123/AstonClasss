@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1f53e060-da75-4484-8168-4e8364b69741" name="Changes" comment="Lesson_16.1" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Lesson_16" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;madagaskar123&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/madagaskar123/AstonClasss.git&quot;,
+    &quot;accountId&quot;: &quot;3c5329be-dc9e-4bd9-9172-53df6ce11e32&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2v8AYrHeMvhrYt6OO6Nuu5typ4K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Lesson_2.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.Park.executor": "Run",
+    "Application.Product.executor": "Run",
+    "Application.Products.executor": "Run",
+    "Application.org.example.Main.executor": "Run",
+    "JUnit.ArithmeticOperationsTests.executor": "Run",
+    "JUnit.ArithmeticOperationsTests.secomTest.executor": "Run",
+    "JUnit.ChromeCreateTest.executor": "Run",
+    "JUnit.ChromeCreateTest.testBlockTitle.executor": "Run",
+    "JUnit.ChromeCreateTest.testContinueButton.executor": "Run",
+    "JUnit.ChromeCreateTest.testContinueButtonFunctionality.executor": "Run",
+    "JUnit.ChromeCreateTest.testDetailsLink.executor": "Run",
+    "JUnit.ChromeCreateTest.testOnlinePaymentBlockTitle.executor": "Run",
+    "JUnit.ChromeCreateTest.testPaymentLogos.executor": "Run",
+    "JUnit.ChromeCreateTest.testPaymentLogosExist.executor": "Run",
+    "JUnit.ChromeCreateTest.testPaymentLogosPresence.executor": "Run",
+    "JUnit.ChromeCreateTest.testPaymentSecurityServiceLink.executor": "Run",
+    "JUnit.ChromeCreateTest.testServiceDetailsLink.executor": "Run",
+    "JUnit.ChromeCreateTest.testServiceLink.executor": "Run",
+    "JUnit.FacorialTest.executor": "Run",
+    "JUnit.FactorialCalculatorTest.executor": "Run",
+    "JUnit.MobilePaymentTest.executor": "Run",
+    "JUnit.MobilePaymentTest.testMobilePaymentProcess.executor": "Run",
+    "JUnit.MtsPageObjectTest.verifyMobileServicesPaymentProcess.executor": "Run",
+    "JUnit.MtsPageTest.executor": "Run",
+    "JUnit.MtsPageTest.testAllPlaceholders.executor": "Run",
+    "JUnit.MtsPageTest.testBlockTitle.executor": "Run",
+    "JUnit.MtsPageTest.testContinueButton.executor": "Run",
+    "JUnit.MtsPageTest.testContinueButtonFunctionality.executor": "Run",
+    "JUnit.MtsPageTest.testContinueButtonFunctionality2.executor": "Run",
+    "JUnit.MtsPageTest.testCreditCardInputPlaceholder.executor": "Run",
+    "JUnit.MtsPageTest.testDropdownOptionsPlaceholders.executor": "Run",
+    "JUnit.MtsPageTest.testDropdownPlaceholders.executor": "Run",
+    "JUnit.MtsPageTest.testInputPlaceholders.executor": "Run",
+    "JUnit.MtsPageTest.testMobilePaymentProcess.executor": "Run",
+    "JUnit.MtsPageTest.testOnlinePaymentBlockTitle.executor": "Run",
+    "JUnit.MtsPageTest.testPaymentBlockTitle.executor": "Run",
+    "JUnit.MtsPageTest.testPaymentLogos.executor": "Run",
+    "JUnit.MtsPageTest.testPaymentLogosExist.executor": "Run",
+    "JUnit.MtsPageTest.testPaymentSecurityServiceLink.executor": "Run",
+    "JUnit.MtsPageTest.testPlaceholdersWhenSwitchingServices.executor": "Run",
+    "JUnit.MtsPageTest.testServiceLink.executor": "Run",
+    "JUnit.MtsPageTest.verifyEmptyFieldsPlaceholdersForDebt.executor": "Run",
+    "JUnit.MtsPageTest.verifyEmptyFieldsPlaceholdersForMobileServices.executor": "Run",
+    "JUnit.MtsPageTest.verifyMobileServicesPaymentProcess.executor": "Run",
+    "JUnit.MtsPaymentTest.testAllPlaceholders.executor": "Run",
+    "JUnit.NumberComparatorTests.executor": "Run",
+    "JUnit.PostmanTest.FormDataPostTest.executor": "Run",
+    "JUnit.PostmanTest.executor": "Run",
+    "JUnit.PostmanTest.testDeleteRequestWithBody.executor": "Run",
+    "JUnit.PostmanTest.testEmptyPatchRequest.executor": "Run",
+    "JUnit.PostmanTest.testGetRequest.executor": "Run",
+    "JUnit.PostmanTest.testPatchRequestWithBody.executor": "Run",
+    "JUnit.PostmanTest.testPostRequestWithBody.executor": "Run",
+    "JUnit.PostmanTest.testPostWithFormData.executor": "Run",
+    "JUnit.PostmanTest.testPutRequestWithTextBody.executor": "Run",
+    "JUnit.ProgramTest.executor": "Run",
+    "JUnit.TriangleAreaCalculatorTests.executor": "Run",
+    "Maven.AstonClasss [clean].executor": "Run",
+    "Maven.AstonClasss [install,-U].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TestNG.ArithmeticOperationsTests.executor": "Run",
+    "TestNG.ArithmeticOperationsTestsNG.executor": "Run",
+    "TestNG.FacorialTestNG.executor": "Run",
+    "TestNG.FacorialTestNG.factorial.executor": "Run",
+    "TestNG.NumberComparatorTestNG.executor": "Run",
+    "TestNG.NumberComparatorTests.executor": "Run",
+    "TestNG.TriangleAreaTestNG.executor": "Run",
+    "git-widget-placeholder": "Lesson__16.1",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/kapba/Downloads/allure-2.34.0.zip",
+    "onboarding.tips.debug.path": "C:/Users/kapba/IdeaProjects/AstonClass/src/main/java/org/example/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn install -U" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.MtsPageTest">
+    <configuration name="MtsPageTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AstonClasss" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MtsPageTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MtsPageTest.testPaymentLogosExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AstonClasss" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MtsPageTest" />
+      <option name="METHOD_NAME" value="testPaymentLogosExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MtsPageTest.testPaymentSecurityServiceLink" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AstonClasss" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MtsPageTest" />
+      <option name="METHOD_NAME" value="testPaymentSecurityServiceLink" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MtsPageTest.verifyEmptyFieldsPlaceholdersForMobileServices" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AstonClasss" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MtsPageTest" />
+      <option name="METHOD_NAME" value="verifyEmptyFieldsPlaceholdersForMobileServices" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MtsPageTest.verifyMobileServicesPaymentProcess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AstonClasss" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MtsPageTest" />
+      <option name="METHOD_NAME" value="verifyMobileServicesPaymentProcess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.MtsPageTest" />
+        <item itemvalue="JUnit.MtsPageTest.verifyMobileServicesPaymentProcess" />
+        <item itemvalue="JUnit.MtsPageTest.verifyEmptyFieldsPlaceholdersForMobileServices" />
+        <item itemvalue="JUnit.MtsPageTest.testPaymentSecurityServiceLink" />
+        <item itemvalue="JUnit.MtsPageTest.testPaymentLogosExist" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1f53e060-da75-4484-8168-4e8364b69741" name="Changes" comment="" />
+      <created>1743516379291</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743516379291</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Lesson_2">
+      <option name="closed" value="true" />
+      <created>1743517062573</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743517062573</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Lesson_4">
+      <option name="closed" value="true" />
+      <created>1743517169700</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743517169700</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Lesson_6">
+      <option name="closed" value="true" />
+      <created>1743523876758</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743523876758</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Lesson_6">
+      <option name="closed" value="true" />
+      <created>1744058049613</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744058049613</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Lesson_6">
+      <option name="closed" value="true" />
+      <created>1744542922024</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744542922024</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Lesson_11">
+      <option name="closed" value="true" />
+      <created>1745005297629</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1745005297629</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Lesson_11">
+      <option name="closed" value="true" />
+      <created>1745005375578</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1745005375578</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Lesson_12">
+      <option name="closed" value="true" />
+      <created>1745345914292</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1745345914292</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Lesson_13">
+      <option name="closed" value="true" />
+      <created>1745764666293</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1745764666293</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Lesson_14">
+      <option name="closed" value="true" />
+      <created>1746012263589</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746012263589</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Lesson_14">
+      <option name="closed" value="true" />
+      <created>1746019356608</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746019356608</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Lesson_15">
+      <option name="closed" value="true" />
+      <created>1746317913719</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746317913719</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Lesson_16">
+      <option name="closed" value="true" />
+      <created>1746910079523</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746910079523</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Lesson_16">
+      <option name="closed" value="true" />
+      <created>1746981358284</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746981358284</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Lesson_17">
+      <option name="closed" value="true" />
+      <created>1747071247558</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1747071247558</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Lesson_16">
+      <option name="closed" value="true" />
+      <created>1747335479432</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1747335479432</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Lesson_16.1">
+      <option name="closed" value="true" />
+      <created>1747336640844</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1747336640844</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Lesson_16.1">
+      <option name="closed" value="true" />
+      <created>1747336657120</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1747336657120</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Lesson_2" />
+    <MESSAGE value="Lesson_4" />
+    <MESSAGE value="Lesson_6" />
+    <MESSAGE value="Lesson_11" />
+    <MESSAGE value="Lesson_12" />
+    <MESSAGE value="Lesson_13" />
+    <MESSAGE value="Lesson_14" />
+    <MESSAGE value="Lesson_15" />
+    <MESSAGE value="Lesson_17" />
+    <MESSAGE value="Lesson_16" />
+    <MESSAGE value="Lesson_16.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lesson_16.1" />
+  </component>
+</project>

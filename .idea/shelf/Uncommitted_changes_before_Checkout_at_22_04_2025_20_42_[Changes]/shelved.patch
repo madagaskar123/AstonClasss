@@ -1,0 +1,39 @@
+Index: src/main/java/Lesson_11/Bowl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Lesson_11;\r\n\r\nclass Bowl {\r\n    private int foodAmount;\r\n\r\n    public Bowl(int initialFood) {\r\n        this.foodAmount = Math.max(initialFood, 0); // Гарантируем, что количество еды не отрицательное\r\n    }\r\n\r\n    public boolean decreaseFood(int amount) {\r\n        if (amount <= 0) return false;\r\n        if (foodAmount >= amount) {\r\n            foodAmount -= amount;\r\n            return true;\r\n        }\r\n        return false;\r\n    }\r\n\r\n    public void addFood(int amount) {\r\n        if (amount > 0) {\r\n            foodAmount += amount;\r\n            System.out.println(\"В миску добавлено \" + amount + \" еды. Теперь в миске \" + foodAmount + \" еды.\");\r\n        }\r\n    }\r\n\r\n    public int getFoodAmount() {\r\n        return foodAmount;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/src/main/java/Lesson_11/Bowl.java b/src/main/java/Lesson_11/Bowl.java
+--- a/src/main/java/Lesson_11/Bowl.java	(revision 7369856c4dcfc0f82dfd6cdd7fc25f98968f58fd)
++++ b/src/main/java/Lesson_11/Bowl.java	(date 1745005996794)
+@@ -8,7 +8,10 @@
+     }
+ 
+     public boolean decreaseFood(int amount) {
+-        if (amount <= 0) return false;
++        if (amount <= 0) {
++            System.out.println("Ошибка: нельзя брать отрицательное или нулевое количество еды");
++            return false;
++        }
+         if (foodAmount >= amount) {
+             foodAmount -= amount;
+             return true;
+Index: src/main/java/Lesson_11/Cat.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Lesson_11;\r\n\r\nclass Cat extends Animal {\r\n    private static int catCount = 0;\r\n    private static final int MAX_RUN_DISTANCE = 200;\r\n    private boolean isFed = false;\r\n\r\n    public Cat(String name) {\r\n        super(name);\r\n        catCount++;\r\n    }\r\n\r\n    @Override\r\n    public void run(int distance) {\r\n        if (distance <= MAX_RUN_DISTANCE) {\r\n            System.out.println(getName() + \" пробежал \" + distance + \" м.\");\r\n        } else {\r\n            System.out.println(getName() + \" не может пробежать \" + distance + \" м. (максимум \" + MAX_RUN_DISTANCE + \" м.)\");\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void swim(int distance) {\r\n        System.out.println(getName() + \" не умеет плавать.\");\r\n    }\r\n\r\n    public void eat(Bowl bowl, int amount) {\r\n        if (bowl.decreaseFood(amount)) {\r\n            isFed = true;\r\n            System.out.println(getName() + \" поел из миски и теперь сыт.\");\r\n        } else {\r\n            System.out.println(getName() + \" не смог поесть - в миске недостаточно еды.\");\r\n        }\r\n    }\r\n\r\n    public boolean isFed() {\r\n        return isFed;\r\n    }\r\n\r\n    public static int getCatCount() {\r\n        return catCount;\r\n    }\r\n}\r\n\r\n
+===================================================================
+diff --git a/src/main/java/Lesson_11/Cat.java b/src/main/java/Lesson_11/Cat.java
+--- a/src/main/java/Lesson_11/Cat.java	(revision 7369856c4dcfc0f82dfd6cdd7fc25f98968f58fd)
++++ b/src/main/java/Lesson_11/Cat.java	(date 1745006045080)
+@@ -25,6 +25,10 @@
+     }
+ 
+     public void eat(Bowl bowl, int amount) {
++        if (amount <= 0) {
++            System.out.println(getName() + ": нельзя кормить отрицательным количеством еды!");
++            return;
++        }
+         if (bowl.decreaseFood(amount)) {
+             isFed = true;
+             System.out.println(getName() + " поел из миски и теперь сыт.");
